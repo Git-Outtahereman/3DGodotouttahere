@@ -48,3 +48,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			twist_input = - event.relative.x * mouse_sensitivity
 			pitch_input = - event.relative.y * mouse_sensitivity
+			
+var respawn_position = Vector3(0, 9, 0)  # Adjust to a safe location
+
+func respawn():
+	global_transform.origin = respawn_position  # Reset position
+	linear_velocity = Vector3.ZERO  # Stop movement
+	angular_velocity = Vector3.ZERO  # Stop rotation
