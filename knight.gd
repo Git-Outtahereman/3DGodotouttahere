@@ -63,3 +63,8 @@ func get_move_input(delta):
 	var vl = velocity * model.transform.basis
 	anim_tree.set("parameters/IWR/blend_position", Vector2(vl.x, -vl.z) / speed)
 	velocity.y = vy
+var respawn_position = Vector3(0, 2, 0)  # Pas deze aan naar de gewenste spawnlocatie
+
+func respawn():
+	global_transform.origin = respawn_position
+	velocity = Vector3.ZERO  # Reset snelheid om onverwachte bewegingen te voorkomen
