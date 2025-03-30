@@ -37,8 +37,10 @@ func _physics_process(delta):
 	
 		# We just hit the floor after being in the air
 	if is_on_floor() and not last_floor:
-		jumping = false
+		jumping = false  # Reset jumping state
 		anim_tree.set("parameters/conditions/grounded", true)
+		anim_tree.set("parameters/conditions/jumping", false)  # Ensure jumping is reset
+		anim_state.travel("Idle")  # Ensure it transitions to the correct animation
 	
 	
 	# We're in the air, but we didn't jump
@@ -48,6 +50,7 @@ func _physics_process(delta):
 	last_floor = is_on_floor()
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		spring_arm.rotation.x -= event.relative.y * mouse_sensitivity
