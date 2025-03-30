@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://qrdrqvk0tndv"]
 
-[ext_resource type="PackedScene" uid="uid://dm0ne74lfii6c" path="res://player_decie.tscn" id="1_0m0jq"]
+[ext_resource type="PackedScene" uid="uid://c3hyyc0dcr3me" path="res://knight.tscn" id="1_t7iv1"]
 [ext_resource type="Script" uid="uid://vcvw2bni6ybv" path="res://killzone.gd" id="2_t7iv1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k5r16"]
@@ -35,7 +35,7 @@ size = Vector3(10, 1, 0.5)
 data = PackedVector3Array(-5, 0.5, 0.25, 5, 0.5, 0.25, -5, -0.5, 0.25, 5, 0.5, 0.25, 5, -0.5, 0.25, -5, -0.5, 0.25, 5, 0.5, -0.25, -5, 0.5, -0.25, 5, -0.5, -0.25, -5, 0.5, -0.25, -5, -0.5, -0.25, 5, -0.5, -0.25, 5, 0.5, 0.25, 5, 0.5, -0.25, 5, -0.5, 0.25, 5, 0.5, -0.25, 5, -0.5, -0.25, 5, -0.5, 0.25, -5, 0.5, -0.25, -5, 0.5, 0.25, -5, -0.5, -0.25, -5, 0.5, 0.25, -5, -0.5, 0.25, -5, -0.5, -0.25, 5, 0.5, 0.25, -5, 0.5, 0.25, 5, 0.5, -0.25, -5, 0.5, 0.25, -5, 0.5, -0.25, 5, 0.5, -0.25, -5, -0.5, 0.25, 5, -0.5, 0.25, -5, -0.5, -0.25, 5, -0.5, 0.25, 5, -0.5, -0.25, -5, -0.5, -0.25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2nifc"]
-size = Vector3(10.0802, 1, 1)
+size = Vector3(1000, 1, 1000)
 
 [node name="Node3D" type="Node3D"]
 
@@ -45,6 +45,8 @@ environment = SubResource("Environment_hpm48")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
+
+[node name="Knight" parent="." instance=ExtResource("1_t7iv1")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40839, -2.6735, 1.81604)
@@ -71,11 +73,6 @@ debug_color = Color(0.627451, 0.568627, 0.792157, 0.419608)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D2"]
 shape = SubResource("ConcavePolygonShape3D_bexhn")
 
-[node name="PlayerDecie" parent="." instance=ExtResource("1_0m0jq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2)
-top_level = true
-linear_damp = 3.0
-
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4058, 0.10536, -2.01167)
 mesh = SubResource("BoxMesh_bexhn")
@@ -87,10 +84,12 @@ shape = SubResource("ConcavePolygonShape3D_t7iv1")
 
 [node name="killzone" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.923285, 0.150626, -3.25598)
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("2_t7iv1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="killzone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.601589, -0.569638, 6.27969)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.602, -9, 117.629)
 shape = SubResource("BoxShape3D_2nifc")
 
-[connection signal="body_entered" from="PlayerDecie" to="killzone" method="_on_player_decie_body_entered"]
+[connection signal="child_entered_tree" from="Knight" to="killzone" method="_on_knight_child_entered_tree"]
